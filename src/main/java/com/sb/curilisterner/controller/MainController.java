@@ -26,11 +26,11 @@ public class MainController {
     private AtomicLong atomicCounter = new AtomicLong();
 
     @RequestMapping(method = GET, value = "/readcontent")
-    public String outContent() {
+    public Counter outContent() {
         Counter counter = countService.getCounter();
         countService.countIncrement(counter);
         countService.save(counter);
-        return counter.getContent();
+        return counter;
     }
 
     @RequestMapping(method = GET, value = "/getcount")
