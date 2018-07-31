@@ -38,7 +38,7 @@ public class Counter {
 
     @Override
     public String toString() {
-        return "Counter{" +
+        return "{" +
                 "id=" + id +
                 ", requestCount=" + requestCount +
                 ", content='" + content + '\'' +

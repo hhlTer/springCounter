@@ -8,19 +8,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class CountService {
 
+    private final long SINGLE_INSTANCE = 1l;
+    private final long ZERO = 0l;
+
     @Autowired
     private CountRepository countRepository;
 
     public Counter getCounter(){
-        if (countRepository.existsById(1l)){
-            return countRepository.getOne(1l);
+        if (countRepository.existsById(SINGLE_INSTANCE)){
+            return countRepository.getOne(SINGLE_INSTANCE);
         } else {
             return defoultCounter();
         }
     }
 
     public void countIncrement(Counter counter){
-//        Counter counter = getCounter();
         long c = counter.getRequestCount();
         c++;
         counter.setRequestCount(c);
@@ -39,7 +41,7 @@ public class CountService {
     }
 
     public long getCount(){
-        if (countRepository.existsById(1l)) {
+        if (countRepository.existsById(SINGLE_INSTANCE)) {
             return countRepository.getRCounter();
         } else {
             return 0;
@@ -48,22 +50,23 @@ public class CountService {
 
     private Counter defoultCounter(){
         Counter counter = new Counter();
-        counter.setId(1l);
-        counter.setRequestCount(1l);
+        counter.setId(SINGLE_INSTANCE);
+        counter.setRequestCount(SINGLE_INSTANCE);
         counter.setContent("Default string");
         return counter;
     }
 
     public void dropCount() {
         Counter counter = getCounter();
-        counter.setRequestCount(0l);
+        counter.setRequestCount(ZERO);
         countRepository.save(counter);
     }
 
     public void save(Counter counter) {
-        if (!countRepository.existsById(1l)){
+        if (!countRepository.existsById(SINGLE_INSTANCE)){
             counter = defoultCounter();
         }
         saveCounter(counter);
     }
+
 }
