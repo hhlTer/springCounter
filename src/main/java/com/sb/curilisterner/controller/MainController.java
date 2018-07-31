@@ -50,13 +50,13 @@ public class MainController {
     }
 
 
-    @RequestMapping(method = {POST, GET}, value = "/postcontent")
+    @RequestMapping(method = GET, value = "/postcontent")
     public void postContent(@RequestParam(value = "content", defaultValue = "Default string") String content) {
         atomicCounter.incrementAndGet();
         countService.saveContent(content);
     }
 
-    @RequestMapping(method = {POST, GET}, value = "/dropcount")
+    @RequestMapping(method = GET, value = "/dropcount")
     public void dropCount() {
         atomicCounter.set(0l);
         countService.dropCount();
